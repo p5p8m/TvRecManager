@@ -1,0 +1,16 @@
+﻿<Application x:Class="Main.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <!--
+//***********************************************************************************************************
+// Revision       $Revision: 26014 $
+// Last Modified  $Date: 2015-06-01 16:55:35 +0200 (Mo, 01. Jun 2015) $
+// Author         $Author: pascal.melix $
+// File           $URL: https://csvnhou-pro.houston.hp.com:18490/svn/sa_paf-tsrd/storage/source/trunk/sanxpert/Code/gui/sanreporter/AttributeReportGenerator.cs $
+//***********************************************************************************************************
+    -->
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

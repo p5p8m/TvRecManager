@@ -1,0 +1,140 @@
+﻿<Window x:Name="MainWin" x:Class="Main.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TV Records Manager" Height="601.115" Width="795.632">
+    <!--
+//***********************************************************************************************************
+// Revision       $Revision: 26014 $
+// Last Modified  $Date: 2015-06-01 16:55:35 +0200 (Mo, 01. Jun 2015) $
+// Author         $Author: pascal.melix $
+// File           $URL: https://csvnhou-pro.houston.hp.com:18490/svn/sa_paf-tsrd/storage/source/trunk/sanxpert/Code/gui/sanreporter/AttributeReportGenerator.cs $
+//***********************************************************************************************************
+    -->
+    <Grid x:Name="MainGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Menu IsMainMenu="True" Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Exit" Click="ExitBtn_Click" />
+            </MenuItem>
+            <MenuItem Header="_Operations" />
+            <MenuItem Header="_Help" />
+        </Menu>
+        <Grid x:Name="FrameGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Border Background="Gainsboro" BorderBrush="Silver" BorderThickness="3" CornerRadius="8,8,3,3">
+                <Grid x:Name="LeftGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" VerticalAlignment="Stretch" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="LeftUpperGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="LeftDirTxtBox" TextChanged="LeftDirTxtBox_TextChanged" Height="34" Margin="10,10,5,0" TextWrapping="NoWrap" Text="c:\" VerticalAlignment="Top" />
+                        <Button x:Name="LeftDirBrowseBtn"  Grid.Column="2" Content="Browse" Height="34" Margin="0,10,0,0" VerticalAlignment="Top" Width="75" Click="LeftDirBrowseBtn_Click"/>
+                    </Grid>
+                    <ListBox x:Name="LeftRecordsLstBox" KeyUp="LeftRecordsLstBox_KeyUp" SelectionChanged="LeftRecordsLstBox_SelectedValueChanged" 
+                             Drop="RecordsLstBox_Drop" AllowDrop="True" PreviewMouseLeftButtonDown="LeftRecordsLstBox_PreviewMouseLeftButtonDown" 
+                             Grid.Row="1" HorizontalAlignment="Stretch" Margin="10,49,0,28" VerticalAlignment="Stretch" SelectionMode="Multiple" >
+                        <Menu Height="100" Width="100"/>
+                    </ListBox>
+                </Grid>
+            </Border>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+            <Grid x:Name="MiddleGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <!--RowDefinition Height="{Binding Path=Height, ElementName=LeftDirBrowseBtn}" /-->
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Button x:Name="CopyToRightBtn" Grid.Row="1" HorizontalAlignment="Center" Height="34"  VerticalAlignment="Center" Width="60" Click="CopyToRightBtn_Click">
+                    <Button.Content>--> +</Button.Content>
+                </Button>
+                <Button x:Name="CopyToLeftBtn" Grid.Row="2" HorizontalAlignment="Center" Height="34"  VerticalAlignment="Center" Width="60" Click="CopyToLeftBtn_Click">
+                    <Button.Content>+ &lt;--</Button.Content>
+                </Button>
+                <Button x:Name="MoveToRightBtn" Grid.Row="3" HorizontalAlignment="Center" Height="34"  VerticalAlignment="Center" Width="60" Click="MoveToRightBtn_Click">
+                    <Button.Content>--></Button.Content>
+                </Button>
+                <Button x:Name="MoveToLeftBtn" Grid.Row="4" HorizontalAlignment="Center" Height="34"  VerticalAlignment="Center" Width="60" Click="MoveToLeftBtn_Click">
+                    <Button.Content>&lt;--</Button.Content>
+                </Button>
+            </Grid>
+            <Border Background="Gainsboro" BorderBrush="Silver" BorderThickness="3" CornerRadius="8,8,3,3" Grid.Column="4">
+                <Grid x:Name="RightGrid" HorizontalAlignment="Stretch" Margin="6,7,4,3" VerticalAlignment="Stretch" Grid.Column="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="RightUpperGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="RightDirTxtBox" TextChanged="RightDirTxtBox_TextChanged" Height="34" Margin="10,10,5,0" TextWrapping="NoWrap" Text="c:\" VerticalAlignment="Top" />
+                        <Button x:Name="RightDirBrowseBtn" Grid.Column="2" Content="Browse" Height="34" Margin="0,10,0,0" VerticalAlignment="Top" Width="75" Click="RightDirBrowseBtn_Click"/>
+                    </Grid>
+                    <ListBox x:Name="RightRecordsLstBox" KeyUp="RightRecordsLstBox_KeyUp" SelectionChanged="RightRecordsLstBox_SelectedValueChanged" 
+                             Drop="RecordsLstBox_Drop" AllowDrop="True" PreviewMouseLeftButtonDown="RightRecordsLstBox_PreviewMouseLeftButtonDown" 
+                             Grid.Row="1" HorizontalAlignment="Stretch" Margin="10,49,0,28" VerticalAlignment="Stretch" SelectionMode="Multiple"/>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid x:Name="LowerGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Row="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid x:Name="InfoGrid" HorizontalAlignment="Stretch" Margin="0,10,0,10" VerticalAlignment="Stretch" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="{Binding Path=Width, ElementName=MiddleGrid}" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="UndoStackLbl" Content="UndoStack" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label x:Name="ListBoxContentsLbl" Content="ListBoxes" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="ProgressGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Row="3" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <Label x:Name="ProgressLbl" Content="{Binding ProgressVal}" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="34" Grid.Row="0"/>
+            <Label x:Name="InfoLbl" Content="---" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="100" Grid.Row="1"/>
+            <StatusBar x:Name="Status" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="2"/>
+        </Grid>
+        <Grid x:Name="ButtonsGrid" HorizontalAlignment="Stretch" Margin="0,10,0,10" VerticalAlignment="Stretch" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="RescanBtn" Grid.Column="0" Content="Rescan" HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Width="60" Click="RescanBtn_Click" />
+            <Button x:Name="RefreshBtn" Grid.Column="1" Content="Refresh" HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Width="60" Click="RefreshBtn_Click" />
+            <Button x:Name="CancelBtn" Grid.Column="2" Content="Cancel" HorizontalAlignment="Right" Height="34" VerticalAlignment="Top" Width="60" Click="CancelBtn_Click" />
+            <Button x:Name="ApplyBtn" Grid.Column="3" Content="Apply" HorizontalAlignment="Right" Height="34"  VerticalAlignment="Top" Width="60" Click="ApplyBtn_Click" />
+            <Button x:Name="ExitBtn" Grid.Column="4" Content="Exit" HorizontalAlignment="Right" Height="34" VerticalAlignment="Top" Width="60" Click="ExitBtn_Click" />
+        </Grid>
+        </Grid>
+</Window>
